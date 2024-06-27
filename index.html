@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base64 Online Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2e2b4b;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #413c6a;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(195, 191, 191, 0.1);
+            color: #fff;
+        }
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            margin-bottom: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #e2e2e2;
+            background-color: #302765;
+            border-radius: 4px;
+            resize: none;
+            color: #fff;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #302765;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #063b73;
+        }
+
+        #result {
+            margin-top: 20px;
+        }
+
+        #downloadImg {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #302765;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            text-decoration: none;
+        }
+
+        #downloadImg:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Base64 Converter</h1>
+        <textarea id="base64data" placeholder="Enter your base64 data here..."></textarea>
+        <button onclick="convert()">Convert to JPG/PNG/GIF</button>
+        <a id="downloadImg" style="display: none;"></a>
+        <div id="result"></div>
+    </div>
+    <script>
+        function convert() {
+            var base64data = document.getElementById('base64data').value;
+            var fileName = 'senanto.jpg';
+            if (base64data.startsWith('data:image/jpeg;base64,')) {
+                fileName = 'senanto.jpg';
+            } else if (base64data.startsWith('data:image/png;base64,')) {
+                fileName = 'senanto.png';
+            } else if (base64data.startsWith('data:image/gif;base64,')) {
+                fileName = 'senanto.gif';
+            } else {
+                alert('Unsupported image format!');
+                return;
+            }
+
+            var img = document.createElement('img');
+            img.src = base64data;
+            img.alt = fileName; 
+            img.style.maxWidth = '100%'; 
+
+            var resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = ''; 
+            resultDiv.appendChild(img);
+
+            var downloadImg = document.getElementById('downloadImg');
+            downloadImg.href = base64data;
+            downloadImg.download = fileName;
+            downloadImg.innerHTML = 'Download';
+            downloadImg.style.display = 'inline-block';
+        }
+    </script>
+</body>
+</html>
